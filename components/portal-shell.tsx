@@ -12,28 +12,29 @@ import {
   MapPin,
   Megaphone,
   Menu,
-  Search,
   Settings,
   Trophy,
   Users
 } from "lucide-react";
+import Link from "next/link";
 import type { ReactNode } from "react";
+import { GlobalSearch } from "@/components/global-search";
 import type { Member } from "@/lib/types";
 import { getInitials } from "@/lib/utils";
 
 const navItems = [
-  { href: "#dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "#opportunities", label: "Opportunities", icon: Handshake },
-  { href: "#resources", label: "Resources", icon: FileText },
-  { href: "#training", label: "Training", icon: GraduationCap },
-  { href: "#events", label: "Live Calls", icon: CalendarDays },
-  { href: "#marketing", label: "Marketing Center", icon: Megaphone },
-  { href: "#points", label: "Bridge Points", icon: Award },
-  { href: "#leaderboard", label: "Leaderboard", icon: Trophy },
-  { href: "#directory", label: "Directory", icon: Users },
-  { href: "#books", label: "Book Requests", icon: BookOpen },
-  { href: "#settings", label: "Settings", icon: Settings },
-  { href: "#support", label: "Support", icon: CircleHelp }
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/opportunities", label: "Opportunities", icon: Handshake },
+  { href: "/resources", label: "Resources", icon: FileText },
+  { href: "/training", label: "Training", icon: GraduationCap },
+  { href: "/events", label: "Live Calls", icon: CalendarDays },
+  { href: "/marketing", label: "Marketing Center", icon: Megaphone },
+  { href: "/points/rewards", label: "Bridge Points", icon: Award },
+  { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
+  { href: "/agents", label: "Directory", icon: Users },
+  { href: "/books", label: "Book Requests", icon: BookOpen },
+  { href: "/profile", label: "Settings", icon: Settings },
+  { href: "/support", label: "Support", icon: CircleHelp }
 ];
 
 export function PortalShell({ member, children }: { member: Member; children: ReactNode }) {
@@ -59,7 +60,7 @@ export function PortalShell({ member, children }: { member: Member; children: Re
 
         <nav className="flex-1 space-y-1 px-4" aria-label="Portal navigation">
           {navItems.map((item, index) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className={`flex items-center gap-4 rounded-md px-4 py-3 text-[15px] font-medium transition ${
@@ -68,7 +69,7 @@ export function PortalShell({ member, children }: { member: Member; children: Re
             >
               <item.icon className="h-5 w-5" aria-hidden />
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -101,14 +102,7 @@ export function PortalShell({ member, children }: { member: Member; children: Re
               <button className="rounded-md p-2 text-bridge-navy hover:bg-slate-100 xl:hidden" aria-label="Open navigation">
                 <Menu className="h-6 w-6" />
               </button>
-              <div className="hidden h-11 min-w-[280px] max-w-xl flex-1 items-center gap-3 rounded-md bg-slate-100 px-4 text-slate-500 ring-1 ring-slate-200 sm:flex">
-                <Search className="h-5 w-5" />
-                <input
-                  className="w-full bg-transparent text-sm outline-none placeholder:text-slate-500"
-                  placeholder="Search resources, training, members..."
-                  aria-label="Search resources, training, members"
-                />
-              </div>
+              <GlobalSearch />
             </div>
             <div className="flex items-center gap-3">
               <button className="relative rounded-md p-2 text-bridge-navy hover:bg-slate-100" aria-label="Notifications" title="Notifications">
@@ -142,10 +136,10 @@ export function PortalShell({ member, children }: { member: Member; children: Re
                   <p className="text-xs font-medium text-slate-500">Your Territory</p>
                   <p className="mt-1 font-bold text-slate-950">{member.territory}</p>
                 </div>
-                <a href="#directory" className="inline-flex items-center gap-2 rounded-md border border-slate-200 px-4 py-2 text-sm font-bold text-bridge-navy hover:border-bridge-blue">
+                <Link href="/agents" className="inline-flex items-center gap-2 rounded-md border border-slate-200 px-4 py-2 text-sm font-bold text-bridge-navy hover:border-bridge-blue">
                   View Territory Map
                   <MapPin className="h-4 w-4" />
-                </a>
+                </Link>
               </div>
             </div>
             {children}
@@ -154,7 +148,7 @@ export function PortalShell({ member, children }: { member: Member; children: Re
 
         <footer className="border-t border-slate-200 px-4 py-6 text-xs text-slate-500 sm:px-6 lg:px-8">
           <div className="mx-auto flex max-w-[1540px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p>© 2026 Bridge Agent Network. All rights reserved.</p>
+            <p>(c) 2026 Bridge Agent Network. All rights reserved.</p>
             <div className="flex gap-8">
               <a href="#privacy">Privacy Policy</a>
               <a href="#terms">Terms of Use</a>
