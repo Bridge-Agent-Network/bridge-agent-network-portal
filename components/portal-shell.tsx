@@ -16,6 +16,7 @@ import {
   Trophy,
   Users
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { GlobalSearch } from "@/components/global-search";
@@ -44,18 +45,13 @@ export function PortalShell({ member, children }: { member: Member; children: Re
     <div className="min-h-screen bg-[#f6f8fb] text-bridge-ink">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-[296px] flex-col bg-[radial-gradient(circle_at_top_left,#144a86,#062a4a_45%,#031b33)] text-white shadow-2xl xl:flex">
         <div className="px-8 pb-5 pt-8">
-          <div className="flex flex-col items-center text-center">
-            <div className="relative mb-3 h-12 w-36">
-              <div className="absolute left-2 right-2 top-6 h-0.5 bg-bridge-gold" />
-              <div className="absolute left-5 top-1 h-10 w-0.5 rotate-[-34deg] bg-bridge-gold" />
-              <div className="absolute left-5 top-1 h-10 w-0.5 rotate-[34deg] bg-bridge-gold" />
-              <div className="absolute right-5 top-1 h-10 w-0.5 rotate-[-34deg] bg-bridge-gold" />
-              <div className="absolute right-5 top-1 h-10 w-0.5 rotate-[34deg] bg-bridge-gold" />
-              <div className="absolute left-[4.1rem] top-2 h-9 w-0.5 bg-bridge-gold" />
-            </div>
-            <p className="font-serif text-3xl uppercase tracking-[0.22em]">Bridge</p>
-            <p className="mt-1 text-xs uppercase tracking-[0.32em] text-white/80">Agent Network</p>
-          </div>
+          <Image
+            src="/bridge-agent-network-logo.svg"
+            alt="Bridge Agent Network"
+            width={520}
+            height={360}
+            className="mx-auto h-auto w-52 rounded-sm"
+          />
         </div>
 
         <nav className="flex-1 space-y-1 px-4" aria-label="Portal navigation">
