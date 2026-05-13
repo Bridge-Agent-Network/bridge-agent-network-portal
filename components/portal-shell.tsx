@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Award,
   Bell,
@@ -14,11 +16,14 @@ import {
   Menu,
   Settings,
   Trophy,
-  Users
+  Users,
+  X
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { useState } from "react";
 import { GlobalSearch } from "@/components/global-search";
 import { assetPath } from "@/lib/asset-path";
 import type { Member } from "@/lib/types";
@@ -39,65 +44,119 @@ const navItems = [
   { href: "/support", label: "Support", icon: CircleHelp }
 ];
 
-export function PortalShell({ member, children }: { member: Member; children: ReactNode }) {
-  const firstName = member.name.split(" ")[0] || "Agent";
+function isActivePath(pathname: string, href: string) {
+  if (href === "/") {
+    return pathname === "/";
+  }
 
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+function SidebarContent({ pathname, onNavigate }: { pathname: string; onNavigate?: () => void }) {
   return (
-    <div className="min-h-screen bg-[#f6f8fb] text-bridge-ink">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[296px] flex-col bg-[radial-gradient(circle_at_top_left,#144a86,#062a4a_45%,#031b33)] text-white shadow-2xl xl:flex">
-        <div className="px-8 pb-5 pt-8">
-          <Image
-            src={assetPath("/bridge-agent-network-logo.png")}
-            alt="Bridge Agent Network"
-            width={1536}
-            height={2048}
-            className="mx-auto h-auto w-56 rounded-sm"
-            priority
-          />
-        </div>
+    <>
+      <div className="px-8 pb-5 pt-8">
+        <Image
+          src={assetPath("/bridge-agent-network-logo.png")}
+          alt="Bridge Agent Network"
+          width={1536}
+          height={2048}
+          className="mx-auto h-auto w-56 rounded-sm"
+          priority
+        />
+      </div>
 
-        <nav className="flex-1 space-y-1 px-4" aria-label="Portal navigation">
-          {navItems.map((item, index) => (
+      <nav className="flex-1 space-y-1 px-4" aria-label="Portal navigation">
+        {navItems.map((item) => {
+          const active = isActivePath(pathname, item.href);
+
+          return (
             <Link
               key={item.href}
               href={item.href}
+              onClick={onNavigate}
               className={`flex items-center gap-4 rounded-md px-4 py-3 text-[15px] font-medium transition ${
-                index === 0 ? "bg-white/12 text-white shadow-inner" : "text-white/86 hover:bg-white/10 hover:text-white"
+                active ? "bg-white/12 text-white shadow-inner" : "text-white/86 hover:bg-white/10 hover:text-white"
               }`}
             >
               <item.icon className="h-5 w-5" aria-hidden />
               {item.label}
             </Link>
-          ))}
-        </nav>
+          );
+        })}
+      </nav>
 
-        <div className="space-y-5 p-6">
-          <div className="rounded-md border border-white/18 bg-white/8 p-4">
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-md border border-bridge-gold/60 bg-bridge-gold/12 text-bridge-gold">
-                <Award className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wide">Bridge Agent</p>
-                <p className="text-xs font-semibold uppercase tracking-wide text-white/70">Elite Member</p>
-              </div>
+      <div className="space-y-5 p-6">
+        <div className="rounded-md border border-white/18 bg-white/8 p-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-md border border-bridge-gold/60 bg-bridge-gold/12 text-bridge-gold">
+              <Award className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide">Bridge Agent</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-white/70">Elite Member</p>
             </div>
           </div>
-          <div className="text-xs leading-6 text-white/72">
-            <p className="flex items-center gap-2">
-              <CircleHelp className="h-4 w-4" /> Need Help?
-            </p>
-            <p className="font-semibold text-white">(833) 777-BRIDGE</p>
-            <p>support@bridgeagentnetwork.com</p>
-          </div>
         </div>
+        <div className="text-xs leading-6 text-white/72">
+          <p className="flex items-center gap-2">
+            <CircleHelp className="h-4 w-4" /> Need Help?
+          </p>
+          <p className="font-semibold text-white">(833) 777-BRIDGE</p>
+          <p>support@bridgeagentnetwork.com</p>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export function PortalShell({ member, children }: { member: Member; children: ReactNode }) {
+  const firstName = member.name.split(" ")[0] || "Agent";
+  const pathname = usePathname();
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  return (
+    <div className="min-h-screen bg-[#f6f8fb] text-bridge-ink">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[296px] flex-col bg-[radial-gradient(circle_at_top_left,#144a86,#062a4a_45%,#031b33)] text-white shadow-2xl xl:flex">
+        <SidebarContent pathname={pathname} />
       </aside>
+
+      <div className={`fixed inset-0 z-40 xl:hidden ${mobileNavOpen ? "" : "pointer-events-none"}`} aria-hidden={!mobileNavOpen}>
+        <button
+          type="button"
+          className={`absolute inset-0 bg-slate-950/55 transition-opacity ${mobileNavOpen ? "opacity-100" : "opacity-0"}`}
+          aria-label="Close navigation"
+          onClick={() => setMobileNavOpen(false)}
+        />
+        <aside
+          className={`relative flex h-full w-[min(86vw,320px)] flex-col overflow-y-auto bg-[radial-gradient(circle_at_top_left,#144a86,#062a4a_45%,#031b33)] text-white shadow-2xl transition-transform duration-200 ${
+            mobileNavOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+          aria-label="Mobile navigation"
+        >
+          <button
+            type="button"
+            className="absolute right-4 top-4 rounded-md p-2 text-white/85 hover:bg-white/10 hover:text-white"
+            aria-label="Close navigation"
+            onClick={() => setMobileNavOpen(false)}
+          >
+            <X className="h-6 w-6" />
+          </button>
+          <SidebarContent pathname={pathname} onNavigate={() => setMobileNavOpen(false)} />
+        </aside>
+      </div>
 
       <div className="xl:pl-[296px]">
         <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/90 backdrop-blur">
           <div className="flex min-h-[76px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
             <div className="flex min-w-0 flex-1 items-center gap-4">
-              <button className="rounded-md p-2 text-bridge-navy hover:bg-slate-100 xl:hidden" aria-label="Open navigation">
+              <button
+                type="button"
+                className="rounded-md p-2 text-bridge-navy hover:bg-slate-100 xl:hidden"
+                aria-label="Open navigation"
+                aria-expanded={mobileNavOpen}
+                onClick={() => setMobileNavOpen(true)}
+              >
                 <Menu className="h-6 w-6" />
               </button>
               <GlobalSearch />
