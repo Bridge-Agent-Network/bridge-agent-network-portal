@@ -1,5 +1,6 @@
 import { Dashboard } from "@/components/dashboard";
 import { PortalShell } from "@/components/portal-shell";
+import { assetPath } from "@/lib/asset-path";
 import { currentMember } from "@/lib/seed-data";
 import Image from "next/image";
 
@@ -9,7 +10,7 @@ export default function Home() {
       <main className="flex min-h-screen items-center justify-center bg-bridge-mist p-6">
         <section className="max-w-lg rounded-lg border border-bridge-line bg-white p-8 text-center shadow-soft">
           <Image
-            src="/bridge-agent-network-logo.svg"
+            src={assetPath("/bridge-agent-network-logo.svg")}
             alt="Bridge Agent Network"
             width={520}
             height={360}

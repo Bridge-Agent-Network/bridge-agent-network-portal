@@ -20,6 +20,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { GlobalSearch } from "@/components/global-search";
+import { assetPath } from "@/lib/asset-path";
 import type { Member } from "@/lib/types";
 import { getInitials } from "@/lib/utils";
 
@@ -46,7 +47,7 @@ export function PortalShell({ member, children }: { member: Member; children: Re
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-[296px] flex-col bg-[radial-gradient(circle_at_top_left,#144a86,#062a4a_45%,#031b33)] text-white shadow-2xl xl:flex">
         <div className="px-8 pb-5 pt-8">
           <Image
-            src="/bridge-agent-network-logo.svg"
+            src={assetPath("/bridge-agent-network-logo.svg")}
             alt="Bridge Agent Network"
             width={520}
             height={360}
