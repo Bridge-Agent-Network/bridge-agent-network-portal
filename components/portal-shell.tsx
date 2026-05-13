@@ -47,11 +47,12 @@ export function PortalShell({ member, children }: { member: Member; children: Re
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-[296px] flex-col bg-[radial-gradient(circle_at_top_left,#144a86,#062a4a_45%,#031b33)] text-white shadow-2xl xl:flex">
         <div className="px-8 pb-5 pt-8">
           <Image
-            src={assetPath("/bridge-agent-network-logo.svg")}
+            src={assetPath("/bridge-agent-network-logo.png")}
             alt="Bridge Agent Network"
-            width={520}
-            height={360}
-            className="mx-auto h-auto w-52 rounded-sm"
+            width={1536}
+            height={2048}
+            className="mx-auto h-auto w-56 rounded-sm"
+            priority
           />
         </div>
 
