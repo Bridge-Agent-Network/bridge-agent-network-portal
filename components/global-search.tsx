@@ -19,7 +19,7 @@ export function GlobalSearch() {
   }, [query]);
 
   return (
-    <div className="relative hidden h-11 min-w-[280px] max-w-xl flex-1 items-center gap-3 rounded-md bg-slate-100 px-4 text-slate-500 ring-1 ring-slate-200 sm:flex">
+    <div className="relative hidden h-10 min-w-[280px] max-w-xl flex-1 items-center gap-3 rounded-md border border-slate-200 bg-slate-50 px-3 text-slate-500 shadow-xs sm:flex">
       <Search className="h-5 w-5" />
       <input
         className="w-full bg-transparent text-sm outline-none placeholder:text-slate-500"
@@ -28,8 +28,9 @@ export function GlobalSearch() {
         value={query}
         onChange={(event) => setQuery(event.target.value)}
       />
+      <kbd className="hidden rounded border border-slate-200 bg-white px-1.5 py-0.5 text-[10px] font-bold text-slate-400 lg:inline-flex">⌘K</kbd>
       {results.length > 0 ? (
-        <div className="absolute left-0 right-0 top-12 z-50 overflow-hidden rounded-lg border border-slate-200 bg-white text-bridge-ink shadow-xl">
+        <div className="absolute left-0 right-0 top-12 z-50 overflow-hidden rounded-lg border border-slate-200 bg-white text-bridge-ink shadow-elevated">
           {results.map((item) => (
             <Link key={`${item.type}-${item.title}`} href={item.href} className="block border-b border-slate-100 px-4 py-3 last:border-b-0 hover:bg-bridge-sky/40">
               <p className="text-xs font-bold uppercase tracking-wide text-bridge-blue">{item.type}</p>

@@ -17,15 +17,23 @@ export function Section({ id, title, eyebrow, children, action }: { id: string; 
   );
 }
 
-export function Card({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn("rounded-lg border border-bridge-line bg-white shadow-soft", className)}>{children}</div>;
+export function Card({ children, className, variant = "default" }: { children: ReactNode; className?: string; variant?: "default" | "interactive" | "emphasis" | "dark" }) {
+  const variants = {
+    default: "rounded-lg border border-slate-200/70 bg-white shadow-card",
+    interactive: "rounded-lg border border-slate-200/70 bg-white shadow-card transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-card-hover",
+    emphasis: "rounded-lg border border-slate-200/70 border-l-4 border-l-bridge-gold bg-white shadow-card",
+    dark: "rounded-xl border border-white/10 bg-gradient-to-br from-bridge-navy to-[#1a3470] text-white shadow-elevated"
+  };
+
+  return <div className={cn(variants[variant], className)}>{children}</div>;
 }
 
-export function Badge({ children, tone = "blue" }: { children: ReactNode; tone?: "blue" | "green" | "gold" | "slate" }) {
+export function Badge({ children, tone = "blue" }: { children: ReactNode; tone?: "blue" | "green" | "gold" | "slate" | "navy" }) {
   const tones = {
-    blue: "bg-bridge-sky text-bridge-navy",
+    blue: "bg-bridge-sky text-bridge-blue",
     green: "bg-emerald-50 text-bridge-green",
-    gold: "bg-amber-50 text-amber-700",
+    gold: "bg-bridge-goldLight text-amber-800",
+    navy: "bg-bridge-navy text-white",
     slate: "bg-slate-100 text-slate-600"
   };
 
@@ -56,4 +64,4 @@ export function Field({ label, children }: { label: string; children: ReactNode 
 }
 
 export const inputClass =
-  "w-full rounded-md border border-bridge-line bg-white px-3 py-2 text-sm text-bridge-ink outline-none transition placeholder:text-slate-400 focus:border-bridge-blue focus:ring-2 focus:ring-bridge-sky";
+  "w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-bridge-ink outline-none transition placeholder:text-slate-400 focus:border-slate-300 focus:ring-4 focus:ring-bridge-gold/30";

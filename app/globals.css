@@ -12,8 +12,9 @@
 
 body {
   margin: 0;
-  background: #f4f8fb;
-  color: #102033;
+  background: #f6f8fb;
+  color: #0f172a;
+  font-variant-numeric: tabular-nums;
 }
 
 a {
@@ -29,5 +30,6 @@ textarea {
 }
 
 ::selection {
-  background: #dbeafe;
+  background: #f5ecd5;
+  color: #0b1b3a;
 }

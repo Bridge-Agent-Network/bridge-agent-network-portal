@@ -36,6 +36,7 @@ export default defineSchema({
     href: v.string(),
     tags: v.array(v.string()),
     previewImage: v.optional(v.string()),
+    previewHref: v.optional(v.string()),
     originalFilename: v.optional(v.string()),
     recommendedUse: v.optional(v.string())
   })

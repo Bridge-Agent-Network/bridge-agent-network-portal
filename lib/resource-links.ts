@@ -12,3 +12,8 @@ export function isPublicFileResource(resource: Pick<Resource, "href">) {
 export function resourceHref(resource: Pick<Resource, "href">) {
   return resource.href.startsWith("/") ? assetPath(resource.href) : resource.href;
 }
+
+export function resourcePreviewHref(resource: Pick<Resource, "href" | "previewHref">) {
+  const previewHref = resource.previewHref ?? resource.href;
+  return previewHref.startsWith("/") ? assetPath(previewHref) : previewHref;
+}

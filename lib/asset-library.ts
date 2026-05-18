@@ -6,6 +6,10 @@ function dropboxAsset(path: string) {
   return `${dropboxFolderUrl}&preview=${encodeURIComponent(path)}&dl=1`;
 }
 
+function dropboxPreview(path: string) {
+  return `${dropboxFolderUrl}&preview=${encodeURIComponent(path)}&raw=1`;
+}
+
 const publicAssets: Resource[] = [
   {
     id: "final-bridge-agent-guide",
@@ -15,6 +19,7 @@ const publicAssets: Resource[] = [
     status: "Ready",
     description: "Primary Bridge Agent guide for explaining the network, the seller options position, and the agent-facing promise.",
     href: dropboxAsset("Assets/Final Bridge Agent Guide Fajardo no crop or bleed.pdf"),
+    previewHref: dropboxPreview("Assets/Final Bridge Agent Guide Fajardo no crop or bleed.pdf"),
     tags: ["guide", "seller options", "bridge agent"],
     recommendedUse: "Use during onboarding and as a core reference piece for founding agents."
   },
@@ -26,6 +31,7 @@ const publicAssets: Resource[] = [
     status: "Ready",
     description: "Seller-facing Three Values piece for cash, as-is, and renovated-value conversations.",
     href: dropboxAsset("Assets/Michelle McCaughey_Every Home Has 3 Values_DJ (4) (1).pdf"),
+    previewHref: dropboxPreview("Assets/Michelle McCaughey_Every Home Has 3 Values_DJ (4) (1).pdf"),
     tags: ["three values", "listing", "seller worksheet"],
     recommendedUse: "Use before or during listing presentations to frame the option-first conversation."
   },
@@ -37,6 +43,7 @@ const publicAssets: Resource[] = [
     status: "Ready",
     description: "Short broker-facing visual packet for explaining how Bridge helps brokerages win more listing conversations.",
     href: dropboxAsset("Assets/Broker_4page_visual (1).pdf"),
+    previewHref: dropboxPreview("Assets/Broker_4page_visual (1).pdf"),
     previewImage: dropboxAsset("Assets/Broker Package.png"),
     tags: ["broker", "presentation", "recruiting"],
     recommendedUse: "Use with brokerage leaders or team leads who need the quick version."
@@ -49,6 +56,7 @@ const publicAssets: Resource[] = [
     status: "Ready",
     description: "Broker packet positioning Bridge as an option-first listing advantage for agents and teams.",
     href: dropboxAsset("Assets/Helping Your Brokerage Win More Listings (2) (1).pdf"),
+    previewHref: dropboxPreview("Assets/Helping Your Brokerage Win More Listings (2) (1).pdf"),
     previewImage: dropboxAsset("Assets/Broker Package.png"),
     tags: ["brokerage", "listings", "recruiting"],
     recommendedUse: "Use when discussing Bridge with brokerage ownership, managers, or team leaders."
@@ -61,6 +69,7 @@ const publicAssets: Resource[] = [
     status: "Ready",
     description: "Condensed broker packet for introducing the network and the seller-options strategy.",
     href: dropboxAsset("Assets/Refined_Broker_Packet (1).pdf"),
+    previewHref: dropboxPreview("Assets/Refined_Broker_Packet (1).pdf"),
     previewImage: dropboxAsset("Assets/Broker Package.png"),
     tags: ["broker", "packet", "network"],
     recommendedUse: "Use as the clean follow-up piece after a broker conversation."
@@ -73,6 +82,7 @@ const publicAssets: Resource[] = [
     status: "Ready",
     description: "Sample mini book agents can request with their own branding.",
     href: dropboxAsset("Assets/RENOVATE MINI BOOK ALEX FAJARDO Without Bleed.pdf.pdf.pdf"),
+    previewHref: dropboxPreview("Assets/RENOVATE MINI BOOK ALEX FAJARDO Without Bleed.pdf.pdf.pdf"),
     tags: ["book", "branding", "renovate to sell"],
     recommendedUse: "Review before submitting a branded book request."
   },

@@ -36,7 +36,7 @@ export function BookRequestPanel() {
   return (
     <Section id="books" eyebrow="Branded books" title="Request agent-branded mini books">
       <div className="grid gap-4 lg:grid-cols-[0.9fr_1fr]">
-        <Card className="p-5 sm:p-6">
+        <Card className="border-l-4 border-l-bridge-gold p-5 sm:p-6">
           <div className="flex items-start gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-md bg-bridge-sky text-bridge-blue">
               <BookOpen className="h-5 w-5" aria-hidden />
@@ -47,10 +47,10 @@ export function BookRequestPanel() {
             </div>
           </div>
           {miniBookResource ? (
-            <div className="mt-5 rounded-md border border-bridge-line bg-bridge-sky/50 p-4">
+            <div className="mt-5 rounded-lg border border-slate-200/70 bg-bridge-sky p-4 shadow-xs">
               <p className="text-sm font-bold text-bridge-navy">{miniBookResource.title}</p>
               <p className="mt-1 text-sm leading-6 text-slate-600">{miniBookResource.description}</p>
-              <a href={resourceHref(miniBookResource)} className="mt-3 inline-flex rounded-md bg-white px-4 py-2 text-sm font-bold text-bridge-navy ring-1 ring-slate-200 hover:ring-bridge-blue">
+              <a href={resourceHref(miniBookResource)} className="mt-3 inline-flex rounded-md bg-white px-4 py-2 text-sm font-bold text-bridge-navy shadow-xs ring-1 ring-slate-200 hover:ring-bridge-gold" target="_blank" rel="noreferrer">
                 Review sample
               </a>
             </div>

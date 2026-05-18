@@ -26,6 +26,7 @@ export type Resource = {
   href: string;
   tags: string[];
   previewImage?: string;
+  previewHref?: string;
   originalFilename?: string;
   recommendedUse?: string;
 };

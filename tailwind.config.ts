@@ -6,18 +6,23 @@ const config: Config = {
     extend: {
       colors: {
         bridge: {
-          ink: "#102033",
-          navy: "#153e75",
-          blue: "#1f6feb",
-          sky: "#dbeafe",
-          mist: "#f4f8fb",
-          line: "#d7e3f1",
-          gold: "#d8a31f",
-          green: "#1f8a5b"
+          ink: "#0f172a",
+          navy: "#0b1b3a",
+          blue: "#1a3470",
+          sky: "#eef2f8",
+          mist: "#f6f8fb",
+          line: "#e2e8f0",
+          gold: "#c9a24b",
+          goldLight: "#f5ecd5",
+          green: "#16a34a"
         }
       },
       boxShadow: {
-        soft: "0 14px 40px rgba(16, 32, 51, 0.08)"
+        xs: "0 1px 2px rgba(15,23,42,0.04)",
+        card: "0 1px 2px rgba(15,23,42,0.04), 0 8px 24px -12px rgba(15,23,42,0.08)",
+        "card-hover": "0 2px 4px rgba(15,23,42,0.06), 0 16px 32px -12px rgba(15,23,42,0.12)",
+        elevated: "0 4px 8px rgba(15,23,42,0.06), 0 24px 48px -16px rgba(11,27,58,0.18)",
+        soft: "0 1px 2px rgba(15,23,42,0.04), 0 8px 24px -12px rgba(15,23,42,0.08)"
       }
     }
   },
