@@ -11,9 +11,9 @@ export default function Home() {
         <section className="max-w-lg rounded-lg border border-bridge-line bg-white p-8 text-center shadow-soft">
           <Image
             src={assetPath("/bridge-agent-network-logo.png")}
-            alt="Bridge Agent Network"
+            alt="The Bridge Agent"
             width={1536}
-            height={2048}
+            height={1024}
             className="mx-auto h-auto w-56 rounded-sm"
             priority
           />

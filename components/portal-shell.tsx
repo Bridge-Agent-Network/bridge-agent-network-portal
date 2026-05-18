@@ -85,9 +85,9 @@ function SidebarContent({ member, pathname, onNavigate }: { member: Member; path
       <div className="border-b border-white/10 px-8 pb-7 pt-8">
         <Image
           src={assetPath("/bridge-agent-network-logo.png")}
-          alt="Bridge Agent Network"
+          alt="The Bridge Agent"
           width={1536}
-          height={2048}
+          height={1024}
           className="mx-auto h-auto w-56 rounded-sm"
           priority
         />
