@@ -3,8 +3,12 @@
 import { BookOpen } from "lucide-react";
 import { useState } from "react";
 import { Badge, Card, Field, Section, inputClass } from "@/components/ui";
+import { allResources } from "@/lib/prototype-data";
+import { resourceHref } from "@/lib/resource-links";
 import { bookRequests, currentMember } from "@/lib/seed-data";
 import type { BookRequest } from "@/lib/types";
+
+const miniBookResource = allResources.find((resource) => resource.id === "renovate-mini-book");
 
 export function BookRequestPanel() {
   const [bookType, setBookType] = useState("Residential Mini Book");
@@ -42,6 +46,15 @@ export function BookRequestPanel() {
               <p className="mt-1 text-sm text-slate-600">Admins fulfill book orders manually until vendor ordering is wired in.</p>
             </div>
           </div>
+          {miniBookResource ? (
+            <div className="mt-5 rounded-md border border-bridge-line bg-bridge-sky/50 p-4">
+              <p className="text-sm font-bold text-bridge-navy">{miniBookResource.title}</p>
+              <p className="mt-1 text-sm leading-6 text-slate-600">{miniBookResource.description}</p>
+              <a href={resourceHref(miniBookResource)} className="mt-3 inline-flex rounded-md bg-white px-4 py-2 text-sm font-bold text-bridge-navy ring-1 ring-slate-200 hover:ring-bridge-blue">
+                Review sample
+              </a>
+            </div>
+          ) : null}
           <form className="mt-5 grid gap-4" onSubmit={handleSubmit}>
             <Field label="Book type">
               <select className={inputClass} value={bookType} onChange={(event) => setBookType(event.target.value)}>

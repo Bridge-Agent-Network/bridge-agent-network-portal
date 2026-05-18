@@ -1,10 +1,12 @@
 import { CheckCircle2, Circle } from "lucide-react";
 import { PrototypePage, Surface } from "@/components/prototype-layout";
-import { certificationModules } from "@/lib/prototype-data";
+import { allResources, certificationModules } from "@/lib/prototype-data";
+import { resourceHref } from "@/lib/resource-links";
 import { trainings } from "@/lib/seed-data";
 
 export default function TrainingPage() {
   const completed = certificationModules.filter((module) => module.complete).length;
+  const trainingAssets = allResources.filter((resource) => resource.category === "Training");
 
   return (
     <PrototypePage title="Training Center" subtitle="Preview certification modules, on-demand videos, and the training progress agents will chase.">
@@ -16,6 +18,17 @@ export default function TrainingPage() {
               <h3 className="mt-2 text-lg font-extrabold text-slate-950">{training.title}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">{training.description}</p>
               <p className="mt-4 text-sm font-bold text-bridge-navy">{training.length}</p>
+            </Surface>
+          ))}
+          {trainingAssets.map((asset) => (
+            <Surface key={asset.id}>
+              <p className="text-xs font-extrabold uppercase tracking-wide text-bridge-blue">Asset Pack</p>
+              <h3 className="mt-2 text-lg font-extrabold text-slate-950">{asset.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{asset.description}</p>
+              <p className="mt-4 text-sm font-bold text-bridge-navy">{asset.format}</p>
+              <a href={resourceHref(asset)} className="mt-4 inline-flex rounded-md border border-slate-200 px-4 py-2 text-sm font-bold text-bridge-navy hover:border-bridge-blue">
+                Open training asset
+              </a>
             </Surface>
           ))}
         </div>

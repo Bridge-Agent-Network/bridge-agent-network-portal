@@ -65,7 +65,7 @@ export const resources: Resource[] = [
     format: "PDF",
     status: "Ready",
     description: "Seller-facing worksheet for Cash, As-Is, and Renovated value conversations.",
-    href: "https://example.com/three-values",
+    href: "/resources/every-home-three-values",
     tags: ["seller", "listing", "signature"]
   },
   {
@@ -75,7 +75,7 @@ export const resources: Resource[] = [
     format: "Canva",
     status: "Ready",
     description: "Co-brandable listing presentation insert for explaining Pay-at-Close renovation options.",
-    href: "https://example.com/renovate-to-sell",
+    href: "/resources/renovate-to-sell-email-campaign",
     tags: ["canva", "listing", "presentation"]
   },
   {
@@ -85,7 +85,7 @@ export const resources: Resource[] = [
     format: "PDF",
     status: "Ready",
     description: "Before/after proof piece: As-Is $450K to Sold $585K after a three-week renovation.",
-    href: "https://example.com/chandler-case-study",
+    href: "/resources/deal-lab-visual",
     tags: ["proof", "reno", "seller"]
   },
   {
@@ -95,7 +95,7 @@ export const resources: Resource[] = [
     format: "Doc",
     status: "Draft",
     description: "Short social scripts for Renovate to Sell, land opportunities, and buyer equity angles.",
-    href: "https://example.com/reels",
+    href: "/resources/three-values-text-messages",
     tags: ["social", "scripts", "bridge points"]
   },
   {
@@ -105,7 +105,7 @@ export const resources: Resource[] = [
     format: "PDF",
     status: "Ready",
     description: "Owner outreach letter explaining traditional, investor, and to-be-built paths.",
-    href: "https://example.com/land-letter",
+    href: "/resources/brokerage-win-more-listings",
     tags: ["land", "investor", "mail"]
   }
 ];
@@ -117,7 +117,7 @@ export const trainings: Training[] = [
     length: "1 hr",
     type: "Recorded",
     description: "The core method, including how to introduce the Three Values conversation.",
-    href: "https://example.com/playbook-overview"
+    href: "/resources/four-page-script"
   },
   {
     id: "deep-dive",
@@ -125,7 +125,7 @@ export const trainings: Training[] = [
     length: "2.5 hrs",
     type: "Workshop",
     description: "Renovate to Sell, Renovate to Buy, land opportunities, and deal structuring.",
-    href: "https://example.com/deep-dive"
+    href: "/resources/presentation-outlines"
   },
   {
     id: "deal-lab-replay",
@@ -133,7 +133,7 @@ export const trainings: Training[] = [
     length: "42 min",
     type: "Live Replay",
     description: "Real-world seller scenarios and how to present the Bridge Agent strategy.",
-    href: "https://example.com/deal-lab"
+    href: "/resources/deal-lab-visual"
   }
 ];
 
@@ -183,7 +183,7 @@ export const pointSubmissions: PointSubmission[] = [
     activity: "Three Values document signed at listing presentation",
     points: 25,
     note: "Seller signed the worksheet after the listing consult.",
-    proofUrl: "https://example.com/proof",
+    proofUrl: "https://bridgeagentnetwork.com/demo/proof",
     status: "Pending",
     submittedAt: "Today"
   },
@@ -193,7 +193,7 @@ export const pointSubmissions: PointSubmission[] = [
     activity: "Social media post using Bridge Agent strategy",
     points: 10,
     note: "Posted a land opportunity reel.",
-    proofUrl: "https://example.com/reel",
+    proofUrl: "https://bridgeagentnetwork.com/demo/reel",
     status: "Approved",
     submittedAt: "Yesterday"
   }

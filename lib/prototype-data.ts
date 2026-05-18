@@ -1,4 +1,6 @@
-import { members, pointActivities, resources, trainings } from "@/lib/seed-data";
+import { curatedAssets } from "@/lib/asset-library";
+import { isPublishedResource } from "@/lib/resource-links";
+import { members, pointActivities, trainings } from "@/lib/seed-data";
 
 export const allMembers = [
   ...members,
@@ -56,18 +58,8 @@ export const allMembers = [
   }
 ];
 
-export const allResources = [
-  ...resources,
-  {
-    id: "seller-options-presentation",
-    title: "Seller Options Presentation v2",
-    category: "Presentations",
-    format: "Deck" as const,
-    status: "Ready" as const,
-    description: "Option-first listing presentation for comparing cash, as-is, renovation, and builder paths.",
-    href: "https://example.com/seller-options-presentation",
-    tags: ["seller options", "presentation", "listing"]
-  },
+const rawResources = [
+  ...curatedAssets,
   {
     id: "calculator",
     title: "Seller Options Calculator",
@@ -77,28 +69,10 @@ export const allResources = [
     description: "Simple calculator for comparing estimated net across the four Bridge paths.",
     href: "/calculator",
     tags: ["calculator", "net", "strategy"]
-  },
-  {
-    id: "brand-kit",
-    title: "Bridge Agent Brand Kit",
-    category: "Marketing",
-    format: "Canva" as const,
-    status: "Ready" as const,
-    description: "Badge, email signature graphic, social profile banner, and listing slide starter set.",
-    href: "https://example.com/brand-kit",
-    tags: ["badge", "canva", "profile"]
-  },
-  {
-    id: "option-drop-may",
-    title: "May Option Drop Campaign",
-    category: "Marketing",
-    format: "Doc" as const,
-    status: "Ready" as const,
-    description: "One email, one postcard, three posts, a reel script, and an objection handler.",
-    href: "https://example.com/may-option-drop",
-    tags: ["monthly", "campaign", "social"]
   }
 ];
+
+export const allResources = rawResources.filter(isPublishedResource);
 
 export const opportunities = [
   {
@@ -206,7 +180,7 @@ export const optionDropItems = [
 ];
 
 export const searchableItems = [
-  ...allResources.map((item) => ({ type: "Resource", title: item.title, detail: item.category, href: "/resources" })),
+  ...allResources.map((item) => ({ type: "Resource", title: item.title, detail: item.category, href: `/resources/${item.id}` })),
   ...allMembers.map((item) => ({ type: "Agent", title: item.name, detail: item.territory, href: "/agents" })),
   ...trainings.map((item) => ({ type: "Training", title: item.title, detail: item.type, href: "/training" })),
   ...opportunities.map((item) => ({ type: "Opportunity", title: item.seller, detail: item.type, href: "/opportunities" })),

@@ -20,6 +20,7 @@ export default defineSchema({
     status: v.union(v.literal("Approved"), v.literal("Pending"), v.literal("Disabled")),
     points: v.number()
   })
+    .index("by_clerk_user_id", ["clerkUserId"])
     .index("by_email", ["email"])
     .index("by_region", ["regionId"])
     .index("by_status", ["status"]),
@@ -27,12 +28,19 @@ export default defineSchema({
   resources: defineTable({
     title: v.string(),
     category: v.string(),
-    format: v.union(v.literal("PDF"), v.literal("Canva"), v.literal("Deck"), v.literal("Video"), v.literal("Doc"), v.literal("Link")),
+    format: v.union(v.literal("PDF"), v.literal("Canva"), v.literal("Deck"), v.literal("Video"), v.literal("Doc"), v.literal("Link"), v.literal("Image")),
     status: v.union(v.literal("Ready"), v.literal("Draft"), v.literal("Coming Soon")),
+    visibility: v.optional(v.union(v.literal("Public"), v.literal("Members"), v.literal("Admin"))),
+    reviewState: v.optional(v.union(v.literal("Published"), v.literal("Needs Review"), v.literal("Internal"))),
     description: v.string(),
     href: v.string(),
-    tags: v.array(v.string())
-  }).index("by_category", ["category"]),
+    tags: v.array(v.string()),
+    previewImage: v.optional(v.string()),
+    originalFilename: v.optional(v.string()),
+    recommendedUse: v.optional(v.string())
+  })
+    .index("by_category", ["category"])
+    .index("by_visibility_review", ["visibility", "reviewState"]),
 
   trainings: defineTable({
     title: v.string(),
@@ -63,7 +71,8 @@ export default defineSchema({
     reviewedBy: v.optional(v.id("members"))
   })
     .index("by_member", ["memberId"])
-    .index("by_status", ["status"]),
+    .index("by_status", ["status"])
+    .index("by_member_submitted_at", ["memberId", "submittedAt"]),
 
   bookRequests: defineTable({
     memberId: v.id("members"),
@@ -75,4 +84,5 @@ export default defineSchema({
   })
     .index("by_member", ["memberId"])
     .index("by_status", ["status"])
+    .index("by_member_created_at", ["memberId", "createdAt"])
 });

@@ -10,16 +10,16 @@ import {
   FileText,
   GraduationCap,
   Handshake,
-  Map,
   Megaphone,
   MoreVertical,
-  Presentation,
   Trophy,
   UserCircle,
   Video
 } from "lucide-react";
 import Link from "next/link";
 import { currentMember, events } from "@/lib/seed-data";
+import { allResources } from "@/lib/prototype-data";
+import { resourceHref } from "@/lib/resource-links";
 import { getInitials } from "@/lib/utils";
 
 const networkUpdates = [
@@ -29,13 +29,8 @@ const networkUpdates = [
   { title: "You earned 125 Bridge Points", detail: "Great work! Keep the momentum.", icon: CalendarClock, href: "/points" }
 ];
 
-const resourceRows = [
-  { title: "Seller Options Presentation v2", meta: "Presentation - Updated May 21, 2026", color: "bg-[#092f55]", icon: Presentation },
-  { title: "Reno-to-Sell Strategy Guide", meta: "Guide - Updated May 20, 2026", color: "bg-emerald-700", icon: Map },
-  { title: "Landowner Opportunity Playbook", meta: "Guide - Updated May 19, 2026", color: "bg-sky-700", icon: BookOpen },
-  { title: "Cash Offer Conversation Script", meta: "Script - Updated May 18, 2026", color: "bg-stone-500", icon: FileText },
-  { title: "Bridge Agent Brand Kit", meta: "Brand Kit - Updated May 15, 2026", color: "bg-[#062a4a]", icon: Award }
-];
+const featuredResources = allResources.slice(0, 5);
+const resourceColors = ["bg-[#092f55]", "bg-emerald-700", "bg-sky-700", "bg-stone-500", "bg-[#062a4a]"];
 
 const leaderboard = [
   { name: "Jamie Carter", territory: "Scottsdale, AZ", points: 3250 },
@@ -162,11 +157,11 @@ export function Dashboard() {
             ))}
           </div>
           <div className="divide-y divide-slate-100">
-            {resourceRows.map((resource) => (
-              <div key={resource.title} className="grid grid-cols-[64px_1fr_auto_auto] items-center gap-4 py-3">
-                <div className={`flex h-12 w-16 items-center justify-center rounded ${resource.color} text-white`}><resource.icon className="h-5 w-5" /></div>
-                <div className="min-w-0"><p className="truncate text-sm font-bold text-slate-950">{resource.title}</p><p className="truncate text-xs text-slate-500">{resource.meta}</p></div>
-                <Link href="/resources" className="hidden rounded-md border border-slate-200 px-4 py-2 text-xs font-bold text-bridge-navy hover:border-bridge-blue sm:inline-flex">Open</Link>
+            {featuredResources.map((resource, index) => (
+              <div key={resource.id} className="grid grid-cols-[64px_1fr_auto_auto] items-center gap-4 py-3">
+                <div className={`flex h-12 w-16 items-center justify-center rounded ${resourceColors[index % resourceColors.length]} text-white`}><FileText className="h-5 w-5" /></div>
+                <div className="min-w-0"><p className="truncate text-sm font-bold text-slate-950">{resource.title}</p><p className="truncate text-xs text-slate-500">{resource.category} - {resource.format}</p></div>
+                <a href={resourceHref(resource)} className="hidden rounded-md border border-slate-200 px-4 py-2 text-xs font-bold text-bridge-navy hover:border-bridge-blue sm:inline-flex" target={resource.href.startsWith("http") ? "_blank" : undefined} rel={resource.href.startsWith("http") ? "noreferrer" : undefined}>Open</a>
                 <MoreVertical className="h-5 w-5 text-slate-400" />
               </div>
             ))}

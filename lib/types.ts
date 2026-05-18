@@ -18,11 +18,16 @@ export type Resource = {
   id: string;
   title: string;
   category: string;
-  format: "PDF" | "Canva" | "Deck" | "Video" | "Doc" | "Link";
+  format: "PDF" | "Canva" | "Deck" | "Video" | "Doc" | "Link" | "Image";
   status: "Ready" | "Draft" | "Coming Soon";
+  visibility?: "Public" | "Members" | "Admin";
+  reviewState?: "Published" | "Needs Review" | "Internal";
   description: string;
   href: string;
   tags: string[];
+  previewImage?: string;
+  originalFilename?: string;
+  recommendedUse?: string;
 };
 
 export type Training = {
