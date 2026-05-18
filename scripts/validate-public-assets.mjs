@@ -1,4 +1,4 @@
-import { readdir, stat } from "node:fs/promises";
+import { access, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 
 const publicResourceDir = path.join(process.cwd(), "public", "resources");
@@ -22,7 +22,15 @@ async function walk(dir) {
   return files;
 }
 
-const files = await walk(publicResourceDir);
+let files = [];
+
+try {
+  await access(publicResourceDir);
+  files = await walk(publicResourceDir);
+} catch {
+  console.log("Public asset validation skipped: public/resources is not present.");
+}
+
 const errors = [];
 
 for (const file of files) {

@@ -61,19 +61,21 @@ Total files: 31
 
 1. Keep raw source assets in `_incoming/`.
 2. Select only polished/public-safe assets for the portal.
-3. Convert selected PDFs/images into curated `public/resources/...` files.
-4. Add preview thumbnails for downloadable PDFs.
+3. Reference selected PDFs/images through hosted asset URLs instead of committing the binaries to GitHub.
+4. Add preview thumbnails through hosted image URLs where available.
 5. Add metadata to `lib/asset-library.ts` so the Resource Library can filter and search the real assets.
 
 ## Portal Update
 
-The first curated batch was copied into:
+The first curated batch is referenced from Dropbox-hosted direct file links in:
 
 ```text
-C:\Projects\bridge-agent-network-portal\public\resources
+C:\Projects\bridge-agent-network-portal\lib\asset-library.ts
 ```
 
-Only agent-facing marketing, training, broker, guide, book, logo, and Deal Lab assets were published. Internal planning, ownership, compensation, and brainstorm documents remain in `_incoming/` only because GitHub Pages is public static hosting.
+Only agent-facing marketing, training, broker, guide, book, logo, and Deal Lab assets are exposed in the portal. Internal planning, ownership, compensation, and brainstorm documents remain in `_incoming/` only because GitHub Pages is public static hosting.
+
+The asset binaries should not live in the GitHub repo. `public/resources` was removed after the Dropbox hosted links were verified.
 
 ## First Batch To Load Into Portal
 
