@@ -5,6 +5,7 @@ import {
   Bell,
   BookOpen,
   CalendarDays,
+  ChevronDown,
   CircleHelp,
   FileText,
   GraduationCap,
@@ -23,17 +24,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GlobalSearch } from "@/components/global-search";
 import { assetPath } from "@/lib/asset-path";
 import type { Member } from "@/lib/types";
 import { getInitials } from "@/lib/utils";
 
-const navItems = [
+const dashboardNavItem = { href: "/", label: "Dashboard", icon: LayoutDashboard };
+
+const navSections = [
   {
     group: "Grow",
     items: [
-      { href: "/", label: "Dashboard", icon: LayoutDashboard },
       { href: "/opportunities", label: "Opportunities", icon: Handshake },
       { href: "/books", label: "Book Requests", icon: BookOpen }
     ]
@@ -80,6 +82,17 @@ function isActivePath(pathname: string, href: string) {
 }
 
 function SidebarContent({ member, pathname, onNavigate }: { member: Member; pathname: string; onNavigate?: () => void }) {
+  const dashboardActive = isActivePath(pathname, dashboardNavItem.href);
+  const activeSection = navSections.find((section) => section.items.some((item) => isActivePath(pathname, item.href)))?.group ?? null;
+  const [openSection, setOpenSection] = useState<string | null>(activeSection);
+  const DashboardIcon = dashboardNavItem.icon;
+
+  useEffect(() => {
+    if (activeSection) {
+      setOpenSection(activeSection);
+    }
+  }, [activeSection]);
+
   return (
     <>
       <div className="shrink-0 border-b border-white/10 px-6 pb-5 pt-6">
@@ -94,31 +107,61 @@ function SidebarContent({ member, pathname, onNavigate }: { member: Member; path
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-        <nav className="space-y-5 px-4 py-5" aria-label="Portal navigation">
-          {navItems.map((section) => (
-            <div key={section.group}>
-              <p className="mb-2 px-4 text-[11px] font-bold uppercase tracking-[0.12em] text-white/40">{section.group}</p>
-              <div className="space-y-1">
-                {section.items.map((item) => {
-                  const active = isActivePath(pathname, item.href);
+        <nav className="space-y-2 px-4 py-5" aria-label="Portal navigation">
+          <Link
+            href={dashboardNavItem.href}
+            onClick={onNavigate}
+            className={`relative flex min-h-[44px] items-center gap-4 rounded-md px-4 py-2.5 text-[15px] font-medium transition ${
+              dashboardActive ? "bg-white/10 text-white shadow-inner before:absolute before:inset-y-2 before:left-0 before:w-[3px] before:rounded-full before:bg-bridge-gold" : "text-white/80 hover:bg-white/[0.08] hover:text-white"
+            }`}
+          >
+            <DashboardIcon className="h-5 w-5" aria-hidden />
+            {dashboardNavItem.label}
+          </Link>
 
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={onNavigate}
-                      className={`relative flex min-h-[44px] items-center gap-4 rounded-md px-4 py-2.5 text-[15px] font-medium transition ${
-                        active ? "bg-white/10 text-white shadow-inner before:absolute before:inset-y-2 before:left-0 before:w-[3px] before:rounded-full before:bg-bridge-gold" : "text-white/80 hover:bg-white/[0.08] hover:text-white"
-                      }`}
-                    >
-                      <item.icon className="h-5 w-5" aria-hidden />
-                      {item.label}
-                    </Link>
-                  );
-                })}
-              </div>
+          {navSections.map((section) => {
+            const sectionActive = section.items.some((item) => isActivePath(pathname, item.href));
+            const open = openSection === section.group;
+
+            return (
+              <div key={section.group}>
+                <button
+                  type="button"
+                  className={`flex min-h-[44px] w-full items-center gap-4 rounded-md px-4 py-2.5 text-left text-[15px] font-medium transition ${
+                    open || sectionActive ? "bg-white/[0.08] text-white" : "text-white/80 hover:bg-white/[0.08] hover:text-white"
+                  }`}
+                  aria-expanded={open}
+                  onClick={() => setOpenSection(open ? null : section.group)}
+                >
+                  <span className={`h-2 w-2 rounded-full ${sectionActive ? "bg-bridge-gold" : "bg-white/[0.35]"}`} />
+                  <span>{section.group}</span>
+                  <ChevronDown className={`ml-auto h-4 w-4 transition-transform ${open ? "rotate-180 text-bridge-gold" : "text-white/50"}`} aria-hidden />
+                </button>
+
+                {open ? (
+                  <div className="ml-5 mt-1 space-y-1 border-l border-white/10 pl-3">
+                    {section.items.map((item) => {
+                      const active = isActivePath(pathname, item.href);
+
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={onNavigate}
+                          className={`relative flex min-h-[38px] items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition ${
+                            active ? "bg-white/10 text-white before:absolute before:inset-y-2 before:left-0 before:w-[3px] before:rounded-full before:bg-bridge-gold" : "text-white/70 hover:bg-white/[0.08] hover:text-white"
+                          }`}
+                        >
+                          <item.icon className="h-4 w-4" aria-hidden />
+                          {item.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                ) : null}
             </div>
-          ))}
+            );
+          })}
         </nav>
 
         <div className="space-y-5 p-6 pt-1">
